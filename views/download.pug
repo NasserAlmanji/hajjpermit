@@ -25,8 +25,7 @@ body(class="bg-gray-100 min-h-screen")
             type="text"
             placeholder="أدخل رقم الهوية"
             required
-            pattern="[0-9]{8,}"
-            title="يجب أن يحتوي على 8 أرقام على الأقل"
+            
           )
         
         button(
@@ -66,7 +65,7 @@ body(class="bg-gray-100 min-h-screen")
         btn.innerHTML = '<span>جاري التحميل...</span>';
         
         const response = await axios.get(`/download-pdf/${nationalId}`, {
-          responseType: 'blob'
+          //responseType: 'blob'
         });
         
         const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -79,11 +78,9 @@ body(class="bg-gray-100 min-h-screen")
         
         showMessage('تم بدء تحميل الملف بنجاح', 'green');
       } catch (error) {
-        if (error.response && error.response.status === 404) {
-          showMessage('لم يتم العثور على ملف بهذا الرقم', 'red');
-        } else {
-          showMessage('حدث خطأ أثناء محاولة التحميل', 'red');
-        }
+        if (error.response) {
+          showMessage(error.response.data, 'red');
+     }
       } finally {
         const btn = e.target.querySelector('button[type="submit"]');
         btn.disabled = false;

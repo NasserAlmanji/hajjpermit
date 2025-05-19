@@ -38,13 +38,13 @@ router.get("/download-pdf/:nationalId", (req, res) => {
     const nationalId = req.params.nationalId;
 
     // Validate national ID format
-    if (!/^\d{8,}$/.test(nationalId)) {
+    if (!/^\d{5,10}$/.test(nationalId)) {
       return res.status(400).send("رقم الهوية غير صالح");
     }
 
     // Find matching PDF file
     const files = fs.readdirSync(PDF_DIR);
-    const matchingFile = files.find((file) => file.includes(nationalId));
+    const matchingFile = files.find((file) => file == "hajj_" + nationalId);
 
     if (!matchingFile) {
       return res.status(404).send("لم يتم العثور على الملف");
