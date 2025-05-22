@@ -147,28 +147,28 @@ async function extractNationalIdFromPdf(file) {
     const text = data.text;
     const lines = text.split("\n");
 
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i].includes("رقم الھویة الوطنیة لحجاج الخلیج")) {
-        //console.log(lines[i]);
-        // Look for numbers in the current line after colon
-        const matchCurrentLine = lines[i].match(
-          /رقم الھویة الوطنیة لحجاج الخلیج[:\s]*([0-9]+)/
-        );
-        if (matchCurrentLine && matchCurrentLine[1]) {
-          return matchCurrentLine[1];
-        }
+    // for (let i = 0; i < lines.length; i++) {
+    //   if (lines[i].includes("رقم الھویة الوطنیة لحجاج الخلیج")) {
+    //     //console.log(lines[i]);
+    //     // Look for numbers in the current line after colon
+    //     const matchCurrentLine = lines[i].match(
+    //       /رقم الھویة الوطنیة لحجاج الخلیج[:\s]*([0-9]+)/
+    //     );
+    //     if (matchCurrentLine && matchCurrentLine[1]) {
+    //       return matchCurrentLine[1];
+    //     }
 
-        // // If not found, check the next line
-        // if (i + 1 < lines.length) {
-        //   const matchNextLine = lines[i + 1].trim().match(/^([0-9]+)/);
-        //   if (matchNextLine && matchNextLine[1]) {
-        //     return matchNextLine[1];
-        //   }
-        // }
-      }
-    }
+    //     // // If not found, check the next line
+    //     // if (i + 1 < lines.length) {
+    //     //   const matchNextLine = lines[i + 1].trim().match(/^([0-9]+)/);
+    //     //   if (matchNextLine && matchNextLine[1]) {
+    //     //     return matchNextLine[1];
+    //     //   }
+    //     // }
+    //   }
+    // }
 
-    return null; // Return null if not found
+    return lines[4]; // Return null if not found
   } catch (error) {
     console.error("Error processing PDF:", error);
     return null;
